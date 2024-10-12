@@ -32,8 +32,26 @@ public class View extends JFrame implements ActionListener {
         }
     }
     @Override
-    public void actionPerformed(ActionEvent actionEvent) {
-
+    public void actionPerformed(ActionEvent e) {
+        switch (e.getActionCommand()) {
+            case "New":
+                controller.createNewDocument();
+                break;
+            case "Open":
+                controller.openDocument();
+                break;
+            case "Save":
+                controller.saveDocument();
+                break;
+            case "Save as...":
+                controller.saveDocumentAs();
+                break;
+            case "Exit":
+                controller.exit();
+                break;
+            case "About":
+                showAbout();
+        }
     }
 
     public void setController(Controller controller) {
@@ -80,9 +98,22 @@ public class View extends JFrame implements ActionListener {
         this.getContentPane().add(tabbedPane,
                 BorderLayout.CENTER);
     }
-    public void initGui(){}
+    public void initGui(){
+        initMenuBar();
+        initEditor();
+        pack();
+    }
 
     public void selectedTabChanged() {
+        switch (tabbedPane.getSelectedIndex()) {
+            case 0:
+                controller.setPlainText(plainTextPane.getText());
+                break;
+            case 1:
+                plainTextPane.setText(controller.getPlainText());
+                break;
+        }
+        resetUndo();
     }
 
     public boolean canUndo() {
