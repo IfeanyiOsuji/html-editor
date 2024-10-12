@@ -1,3 +1,7 @@
+package controller;
+
+import view.View;
+
 import javax.swing.text.html.HTMLDocument;
 import java.io.File;
 
